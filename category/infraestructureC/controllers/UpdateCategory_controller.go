@@ -19,7 +19,8 @@ func NewUpdateCategoryController(update *application.UpdateCategory) *UpdateCate
 
 func (ctrl *UpdateCategoryController) UpdateCategory(c *gin.Context) {
 	var req struct {
-		Name string `json:"name"`
+		Name   string `json:"name"`
+		Status int32  `json:"status"`
 	}
 
 	if err := c.BindJSON(&req); err != nil {
@@ -33,7 +34,8 @@ func (ctrl *UpdateCategoryController) UpdateCategory(c *gin.Context) {
 		return
 	}
 
-	category := domain.NewCategory(req.Name)
+	// Usamos el constructor y luego seteamos el ID
+	category := domain.NewCategory(req.Name, req.Status)
 	category.SetID(int32(id))
 
 	err = ctrl.UpdateCategoryUseCase.Run(*category)

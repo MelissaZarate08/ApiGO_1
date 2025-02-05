@@ -6,4 +6,5 @@ type ICategory interface {
 	GetByID(id int32) (Category, error)
 	Update(category Category) error
 	Delete(id int32) error
+	GetByStatus(status int32) ([]Category, error)
 }
